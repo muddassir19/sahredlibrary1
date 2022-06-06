@@ -3,12 +3,6 @@ pipeline {
     agent any
 
     stages {
-        stage('git checkout') {
-            steps {
-                git credentialsId: 'git-hub', url: 'https://github.com/muddassir19/sahredlibrary1'
-             //git branch: 'tomcat-ci-cd', credentialsId: 'git-hub', url: 'https://github.com/muddassir19/my-app'
-            }
-        }
         stage('maven build'){
             steps{
              sh 'mvn clean package'
