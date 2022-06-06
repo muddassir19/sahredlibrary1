@@ -18,9 +18,14 @@ pipeline {
         }
         stage('sonarqube analysis'){
             steps{
-             withCredentials([string(credentialsId: 'sonar-token', variable: 'sonartoken')]) {
-                 sh  "mvn sonar:sonar -Dsonar.host.url=${SONAR_URL} -Dsonar.login=${sonartoken}"      
-                  }
+                withSonarQubeEnv('sonar7') {
+                 sh  'mvn sonar:sonar'
+                 }
+                waitForQualityGate abortPipeline: false, credentialsId: 'sonar-token'
+                
+           //  withCredentials([string(credentialsId: 'sonar-token', variable: 'sonartoken')]) {
+               //  sh  "mvn sonar:sonar -Dsonar.host.url=${SONAR_URL} -Dsonar.login=${sonartoken}"      
+                //  }
             }
         }
     }
