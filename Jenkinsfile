@@ -1,6 +1,9 @@
 @Library('sharedlibrary') _
 pipeline {
     agent any
+    environment {
+       SONAR_URL = "http://43.204.212.17:9000"
+      }
 
     stages {
         stage('maven build'){
@@ -16,7 +19,7 @@ pipeline {
         stage('sonarqube analysis'){
             steps{
              withCredentials([string(credentialsId: 'sonar-token', variable: 'sonartoken')]) {
-              sh  "mvn sonar:sonar -Dsonar.host.url=http://43.204.212.17:9000 -Dsonar.login=${sonartoken}"      
+                 sh  "mvn sonar:sonar -Dsonar.host.url=${SONAR_URL} -Dsonar.login=${sonartoken}"      
                   }
             }
         }
