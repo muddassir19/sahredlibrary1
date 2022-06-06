@@ -5,7 +5,7 @@
 	<artifactId>myweb</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.4</version>
-	<name>my-app</name>
+	<name>sahredlibrary1</name>
 
 	<url>http://maven.apache.org</url>
 
