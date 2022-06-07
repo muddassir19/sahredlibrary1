@@ -1,4 +1,4 @@
-@Library('sharedlibrary') _
+//@Library('sharedlibrary') _
 pipeline {
     agent any
     environment {
@@ -11,11 +11,11 @@ pipeline {
              sh 'mvn clean package'
             }
         }
-        stage('Deploy to tomcat'){
+        /*stage('Deploy to tomcat'){
             steps{
             tomcatDeploy('172.31.5.237', 'app', 'tomcat-dev')
             }
-        }
+        } */
         stage('sonarqube analysis'){
             steps{
                 withSonarQubeEnv('sonar7') {
