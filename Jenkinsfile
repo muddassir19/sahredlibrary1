@@ -16,6 +16,11 @@ pipeline {
             tomcatDeploy('172.31.5.237', 'app', 'tomcat-dev')
             }
         }
+        stage('Docker build'){
+            steps{
+               sh 'docker build . -t muddassir19/myweb-0.0.4:0.0.1'
+            }
+        }
         stage('sonarqube analysis'){
             steps{
                 withSonarQubeEnv('sonar7') {
