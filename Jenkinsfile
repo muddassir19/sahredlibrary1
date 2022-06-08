@@ -28,11 +28,17 @@ pipeline {
                 //  }
             }
         }
+        stage('Docker build'){
+            steps{
+               sh 'docker build . -t muddassir19/myweb-0.0.4:0.0.1'
+            }
+        }
+        
     }
-     post {
+    /* post {
     success {
       archiveArtifacts artifacts: 'target/*.war'
       //cleanWs()
         }
-     }
+     } */
 }
