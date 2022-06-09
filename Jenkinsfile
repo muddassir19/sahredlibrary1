@@ -48,7 +48,7 @@ pipeline {
                 
                 sshagent(['tomcat-dev1']) {
                  sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.5.237 "
-                 sh'docker run -p 8181:8080 -d --name new-app muddassir19/newapp:0.0.1'
+                 sh'docker run -p 8181:8080 -d --name newapp muddassir19/newapp:0.0.1'
                 }
                 
             }
