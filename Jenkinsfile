@@ -3,7 +3,7 @@ pipeline {
     agent any
      environment {
        //SONAR_URL = "http://43.204.212.17:9000"
-       DEV_SERVER = "172.31.5.237"
+      // DEV_SERVER = "172.31.5.237"
       } 
 
     stages {
@@ -45,9 +45,10 @@ pipeline {
         }
         stage('Running conatianer on dev server'){
             steps{
-                def dockerRun = 'docker run -p 8181:8080 -d --name new-app muddassir19/newapp:0.0.1'
+                
                 sshagent(['tomcat-dev1']) {
-                 sh "ssh -o StrictHostKeyChecking=no ec2-user@${DEV_SERVER} ${dockerRun}"
+                 sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.5.237 "
+                 sh'docker run -p 8181:8080 -d --name new-app muddassir19/newapp:0.0.1'
                 }
                 
             }
