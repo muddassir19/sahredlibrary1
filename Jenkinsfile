@@ -30,7 +30,7 @@ pipeline {
         } */
         stage('Docker build'){
             steps{
-               sh 'docker build . -t muddassir19/myweb-0.0.4:0.0.1'
+               sh 'docker build . -t muddassir19/myweb:0.0.1'
             }
         }
         
