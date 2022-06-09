@@ -39,7 +39,7 @@ pipeline {
                 withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerHubPsd')]) {
                     sh "docker login -u muddassir19 -p ${dockerHubPsd} "
                     }
-               sh 'docker push muddassir19/myweb-0.0.4:0.0.1'
+               sh 'docker push muddassir19/newapp:0.0.1'
             }
         }
     }
