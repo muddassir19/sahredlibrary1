@@ -1,10 +1,10 @@
 //@Library('sharedlibrary') _
 pipeline {
     agent any
-     environment {
+    /* environment {
        //SONAR_URL = "http://43.204.212.17:9000"
       // DEV_SERVER = "172.31.5.237"
-      } 
+      } */
 
     stages {
         stage('maven build'){
