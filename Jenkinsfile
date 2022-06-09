@@ -1,43 +1,41 @@
-@Library('sharedlibrary') _
+//Bild war file using maven and upload the war file to nexus repository.
+
 pipeline {
     agent any
-    environment {
-       SONAR_URL = "http://43.204.212.17:9000"
-      }
-
+    tools{
+        maven 'maven3'
+    }
     stages {
-        stage('maven build'){
+        stage('Git Checkout'){
             steps{
-             sh 'mvn clean package'
+                git branch: 'feature1-nexus', credentialsId: 'git-hub', 
+                url: 'https://github.com/muddassir19/sahredlibrary1'
             }
         }
-       /* stage('Deploy to tomcat'){
-            steps{
-            tomcatDeploy('172.31.5.237', 'app', 'tomcat-dev')
-            }
-        } */
-        stage('Docker build'){
-            steps{
-               sh 'docker build . -t muddassir19/myweb-0.0.4:0.0.1'
+        stage('Build') {
+            steps {
+                sh script: 'mvn clean package'
             }
         }
-        stage('sonarqube analysis'){
+        // Upload maven war file to the nexus repository
+        stage('Upload war file nexus'){
             steps{
-                withSonarQubeEnv('sonar7') {
-                 sh  'mvn sonar:sonar'
-                 }
-                waitForQualityGate abortPipeline: false, credentialsId: 'sonar-token'
-                
-           //  withCredentials([string(credentialsId: 'sonar-token', variable: 'sonartoken')]) {
-               //  sh  "mvn sonar:sonar -Dsonar.host.url=${SONAR_URL} -Dsonar.login=${sonartoken}"      
-                //  }
+                nexusArtifactUploader artifacts: [
+                    [
+                        artifactId: 'myweb', 
+                        classifier: '', 
+                        file: 'target/myweb-1.0.0.war', 
+                        type: 'war'
+                    ]
+                ], 
+                credentialsId: 'nexus3', 
+                groupId: 'in.javahome', 
+                nexusUrl: '172.31.0.46:8081', 
+                nexusVersion: 'nexus3', 
+                protocol: 'http', 
+                repository: 'javaapp-release/', 
+                version: '1.0.0'
             }
         }
     }
-     /* post {
-    success {
-      archiveArtifacts artifacts: 'target/*.war'
-      cleanWs()
-        }
-     } */
 }
